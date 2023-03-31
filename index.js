@@ -1,7 +1,8 @@
 // Connect to the MongoDB database
-const MongoClient = require('mongodb').MongoClient;
-const uri = 'mongodb://localhost:27017/mydb';
+const MongoClient = require('').MongoClient;
+const uri ='mongodb+srv://nmurigi:2461314454@cluster0.3tythl5.mongodb.net/test'
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
 
 client.connect(err => {
   if (err) {
@@ -28,12 +29,12 @@ client.connect(err => {
     orders.forEach(order => {
       const tr = document.createElement('tr');
       tr.innerHTML = `
-        <td>${order._id}</td>
+        <td>${orders._id}</td>
         <td>${order.user.name}</td>
-        <td>${order.phoneNumber}</td>
-        <td>${order.productName}</td>
-        <td>${order.quantity}</td>
-        <td>${new Date(order.orderDate).toLocaleDateString()}</td>
+        <td>${orders.phone_number}</td>
+        <td>${orders.productname}</td>
+        <td>${orders.quantity}</td>
+        <td>${new Date(orders.orderDate).toLocaleDateString()}</td>
         <td class="status-${order.status}">${orderStatusMap[order.status]}</td>
       `;
       ordersTableBody.appendChild(tr);

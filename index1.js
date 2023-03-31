@@ -1,4 +1,4 @@
- // Get a reference to the orders table body and users table body
+// Get a reference to the orders table body and users table body
 const ordersTableBody = document.querySelector('#orders-table-body');
 const usersTableBody = document.querySelector('#users-table-body');
 
@@ -12,17 +12,17 @@ const orderStatusMap = {
 };
 
 // Fetch the orders and populate the orders table
-fetch('/api/orders')
+fetch('https://eu-central-1.aws.data.mongodb-api.com/app/data-zmqud/endpoint/data/v1/orders')
   .then(response => response.json())
   .then(orders => {
     orders.forEach(order => {
       const tr = document.createElement('tr');
       tr.innerHTML = `
         <td>${order._id}</td>
-        <td>${user.Name}</td>
-        <td>${order.PhoneNumber}</td>
-        <td>${order.productName}</td>
-        <td>${order.Quantity}</td>
+        <td>${order.user.fullname}</td>
+        <td>${order.phone_number}</td>
+        <td>${order.productname}</td>
+        <td>${order.quantity}</td>
         <td>${new Date(order.orderDate).toLocaleDateString()}</td>
         <td class="status-${order.status}">${orderStatusMap[order.status]}</td>
       `;
@@ -31,18 +31,18 @@ fetch('/api/orders')
   });
 
 // Fetch the users and populate the users table
-fetch('/api/users')
+fetch('https://eu-central-1.aws.data.mongodb-api.com/app/data-zmqud/endpoint/data/v1/users')
   .then(response => response.json())
   .then(users => {
     users.forEach(user => {
       const tr = document.createElement('tr');
       tr.innerHTML = `
-        <td>${user._id}</td>
-        <td>${user.name}</td>
-        <td>${user.PhoneNumber}</td>
-        <td>${user.Location}</td>
+        <td>${user.id_number}</td>
+        <td>${user.fullname}</td>
+        <td>${user.phone_number}</td>
+        <td>${user.location}</td>
         <td>${new Date(user.registrationDate).toLocaleDateString()}</td>
-         <td class="status-${user.status}">${user.status}</td>
+        <td class="status-${user.status}">${user.status}</td>
       `;
       usersTableBody.appendChild(tr);
     });
@@ -68,3 +68,4 @@ var chart = new Chart(ctx, {
   data: data,
   options: {}
 });
+
